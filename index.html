@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinite Scroll</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #container{
+            width: 30%;
+            display: flex;
+            flex-direction: column;
+            margin: 10px;
+            background: #cdcaca;
+            height: 100%;
+            padding: 10px;
+            overflow: scroll;
+        }
+        .block{
+            border: 1px solid black;
+            border-radius: 5px;
+            width: 80%;
+            margin: 10px;
+            padding: 20px 30px;
+            background-color: rgb(245, 170, 170);
+            text-align: center;
+            text-transform: capitalize;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div class="block">item 0</div>
+    </div>
+
+    <script>
+        let box= document.getElementById("container");
+        let c= 1;
+        function addDiv(){
+            setTimeout(() => {
+                for(let i=0; i<10; i++){
+                    let create= document.createElement("div");
+                    create.innerHTML=`item ${c}`;
+                    create.classList.add("block");
+                    box.appendChild(create);
+                    c++
+                }
+            }, 1000);
+        }
+        box.addEventListener("scroll", () => {
+            if (box.scrollTop + box.clientHeight >= box.scrollHeight-5) {
+                addDiv();
+            }
+        });
+
+        // Add initial content to enable scrolling
+        addDiv();
+        addDiv();
+
+    </script>
+</body>
+</html>
